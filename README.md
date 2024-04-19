@@ -1,15 +1,15 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-Descargar imagen de Mongo 5.0.0 y postgres 16
-docker pull mongo:7.0
-docker pull postgres:16.2
-docker pull nats:latest
+# Product Microservice
 
 
-prisma
-1. iniciar prisma
-npx prisma init 
-2. migrarcion
-npx prisma migrate dev --name init
+
+## Dev
+
+1. Clonar el repositorio
+2. Instalar dependencias
+3. Crear un archivo `.env` basado en el `env.template`
+4. Ejecutar migración de prisma `npx prisma migrate dev`
+5. Levantar el servidor de NATS
+```
+docker run -d --name nats-server -p 4222:4222 -p 8222:8222 nats
+```
+6. Ejecutar `npm run start:dev`

@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { envs } from './config';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const logger = new Logger('main'); //logger para ver en consola
+  const logger = new Logger('Main');
   //trasformamos a microservicio
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -16,8 +16,7 @@ async function bootstrap() {
       },
     },
   );
-
-  //para que funcione el pipe de validacion junto a class-validator
+   //para que funcione el pipe de validacion junto a class-validator
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -25,7 +24,7 @@ async function bootstrap() {
     }),
   );
 
-  logger.log(`Products microservice running on http://localhost:${envs.port}`);
+  await app.listen();
+  logger.log(`Products Microservice running on port ${envs.port}`);
 }
-
 bootstrap();
