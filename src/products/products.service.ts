@@ -89,8 +89,10 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
   }
 
   async validateProducts(ids: number[]) {
+    //estoy usando un set para que no se repitan los ids, el array from es para convertir el set en un array
     ids = Array.from(new Set(ids));
 
+    //esto es para buscar los productos que tengan los ids que le pase, le paso muchos ids
     const products = await this.product.findMany({
       where: {
         id: {
@@ -99,6 +101,7 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
       },
     });
 
+    //si la cantidad de productos que me devolvio la base de datos no es igual a la cantidad de ids que le pase
     if (products.length !== ids.length) {
       throw new RpcException({
         message: 'Some products were not found',
