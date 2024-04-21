@@ -10,13 +10,15 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      //ahora ocupamos el transportador de nats
+      transport: Transport.NATS,
       options: {
-        port: envs.port,
+        //ahora ocupamos el servidor de nats
+        servers: envs.natsServers,
       },
     },
   );
-   //para que funcione el pipe de validacion junto a class-validator
+  //para que funcione el pipe de validacion junto a class-validator
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
